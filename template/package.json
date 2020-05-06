@@ -1,0 +1,19 @@
+{
+  "name": "{{projectName}}",
+  "version": "1.0.0",
+  "description": "static blog powered by zonapress",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "nodemon ./server/index.js",
+    "build": "node ./build/transToHtml.js",
+    "new": "node ./build/genNewArticle.js"
+  },
+  "dependencies": {
+    "md-to-html-lite": "^0.0.2"
+  },
+  "engines": {
+    "node": ">=9"
+  }
+}

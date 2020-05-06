@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+const semver = require('semver')
+
+program.version(require('../package.json').version)
+.command('init', 'generate a markdown workspace')
+.command('build', 'build all markdown file to static html')
+
+program.parse(process.argv)
+
+program.on('--help', () => {
+  console.log('document')  
+})
+

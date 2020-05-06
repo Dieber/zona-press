@@ -1,0 +1,122 @@
+#!/usr/bin/env node
+
+const moment = require('moment')
+
+const program = require('commander')
+const semver = require('semver')
+const chalk = require('chalk')
+const inquirer = require('inquirer')
+const path = require('path')
+const ora = require('ora')
+const Metalsmith = require('metalsmith')
+const Handlebars = require('handlebars')
+const {checkNodeVer} = require('../utils/index')
+const fs = require('fs-extra')
+
+
+const metalsmith = Metalsmith(path.resolve(__dirname, '../template'))
+
+program.version(require('../package.json').version)
+program.parse(process.argv)
+program.on('--help', () => {
+  console.log('这是Help')  
+})
+
+
+// 初始化一些输入信息
+
+const rawName = program.args[0]
+const inPlace = !rawName || rawName === '.'
+const name = inPlace ? path.relative('../', process.cwd()) : rawName
+const destinationPath = inPlace ? '.' : `./${name}` 
+
+// 声明handlebar的信息
+
+let handleBarsInitData = {
+  'projectName': name,
+  'firstDate': moment().format('YYYY-MM-DD hh:mm:ss')
+}
+
+
+
+// 在此判断所有项目环境是否达标
+checkNodeVer(require('../package.json').engines.node, 'zona-press')
+
+inquirer.prompt([{
+  type: 'input',
+  message: inPlace ? `在当前目录创建?` : '新创建一个新目录，是否继续？',
+  name: 'init',
+  default: true
+}]).then((answers) => {
+  if (answers.init) {
+    run()
+  } else {
+    console.log('请重新选择文件夹')
+  }
+})
+
+function run() {
+  const spinner = ora({
+    text: '正在下载文件',
+    spinner: {
+      interval: 80, // Optional
+      frames: [
+      '🐂      ', 
+      '🐂🍺    ',
+      '🐂🍺🍺  ',
+      '🐂🍺🍺🍺',
+      '🐂🍺🍺  ',
+      '🐂🍺    ']
+    }
+  })
+  console.log(path.resolve(destinationPath));
+  spinner.start()
+
+  metalsmith
+  .clean(false)
+  .source('.')
+  .use((files, metalsmith, done) => {
+    let filenames = Object.keys(files)
+
+
+    // Promise.all(filenames.map((filename) => {
+    //   return new Promise((resolve, reject) => {
+        
+    //   })
+      
+    // }))
+
+    let promises = []
+
+    filenames.forEach((filename) => {
+      let promise = fs.readFile(metalsmith.directory() + '/' + filename, 'utf-8')
+      promise.then((source) => {
+        if (!/{{([^{}]+)}}/g.test(source)) {
+          return
+        }
+        let template = Handlebars.compile(source)
+        var result = template(handleBarsInitData);
+        files[filename].contents = new Buffer.from(result)
+      })
+      promises.push(promise)
+    })
+
+
+    Promise.all(promises).then(() => {
+      done()
+    })
+
+  })
+  .destination(path.resolve(destinationPath))
+  .build((err) => {
+    console.log('OKOK')
+    if (err) {
+      throw err
+    }
+
+    setTimeout(() => {
+      spinner.stop()
+      console.log('build finished')
+    }, 1000)
+  })
+}
