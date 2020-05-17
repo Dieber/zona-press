@@ -3,8 +3,6 @@
 const moment = require('moment')
 
 const program = require('commander')
-const semver = require('semver')
-const chalk = require('chalk')
 const inquirer = require('inquirer')
 const path = require('path')
 const ora = require('ora')
@@ -12,7 +10,6 @@ const Metalsmith = require('metalsmith')
 const Handlebars = require('handlebars')
 const {checkNodeVer} = require('../utils/index')
 const fs = require('fs-extra')
-
 
 const metalsmith = Metalsmith(path.resolve(__dirname, '../template'))
 
@@ -34,16 +31,14 @@ const destinationPath = inPlace ? '.' : `./${name}`
 
 let handleBarsInitData = {
   'projectName': name,
-  'firstDate': moment().format('YYYY-MM-DD hh:mm:ss')
+  'firstDate': moment().format('YYYY-MM-DD')
 }
-
-
 
 // 在此判断所有项目环境是否达标
 checkNodeVer(require('../package.json').engines.node, 'zona-press')
 
 inquirer.prompt([{
-  type: 'input',
+  type: 'confirm',
   message: inPlace ? `在当前目录创建?` : '新创建一个新目录，是否继续？',
   name: 'init',
   default: true
@@ -77,15 +72,6 @@ function run() {
   .source('.')
   .use((files, metalsmith, done) => {
     let filenames = Object.keys(files)
-
-
-    // Promise.all(filenames.map((filename) => {
-    //   return new Promise((resolve, reject) => {
-        
-    //   })
-      
-    // }))
-
     let promises = []
 
     filenames.forEach((filename) => {

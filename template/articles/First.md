@@ -1,10 +1,10 @@
 ---
-title: 第一篇文章
+title: first_article
 image: default.png
 time: {{firstDate}}
 ---
 
-# 第一篇文章
+# first_article
 
 这是初始化后的第一篇文章，当您看到了这篇文章，您可以进行随意创作了。
 
@@ -20,3 +20,4 @@ time: {{firstDate}}
 
 图片，列表，个性化引用。
 
+npm

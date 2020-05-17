@@ -1,17 +1,26 @@
 {
-  "name": "{{projectName}}",
+  "name": "press-test2",
   "version": "1.0.0",
   "description": "static blog powered by zonapress",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "nodemon ./server/index.js",
-    "build": "node ./build/transToHtml.js",
-    "new": "node ./build/genNewArticle.js"
+    "dev": "nodemon --watch server --watch articles --watch pages --watch images ./server/index.js -e html,md",
+    "build": "node ./build/generate.js",
+    "new": "node ./build/newArticle.js"
   },
   "dependencies": {
-    "md-to-html-lite": "^0.0.2"
+    "chalk": "^4.0.0",
+    "commander": "^5.1.0",
+    "fs-extra": "^9.0.0",
+    "handlebars": "^4.7.6",
+    "inquirer": "^7.1.0",
+    "koa": "^2.11.0",
+    "koa-static": "^5.0.0",
+    "md-to-html-lite": "0.0.6",
+    "metalsmith": "^2.3.0",
+    "moment": "^2.25.3"
   },
   "engines": {
     "node": ">=9"
