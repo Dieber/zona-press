@@ -85,34 +85,56 @@ function run() {
         if (!/{{([^{}]+)}}/g.test(source)) {
           return
         }
+        // handleBars进行填充
+        console.log(filename)
+        if (!(/build\/template.*/.test(filename))) {
+          console.log('shit', filename)
+          let template = Handlebars.compile(source)
+          var result = template(handleBarsInitData);
+          files[filename].contents = new Buffer.from(result)
+        }
 
-        let template = Handlebars.compile(source)
-        var result = template(handleBarsInitData);
-        files[filename].contents = new Buffer.from(result)
         // 为第一篇文章改名
-        console.log('shit', filename)
-        if (filename === 'articles/First.md') {
-          console.log(123)
+        if (filename === 'articles/First_Article.md') {
           let data = files[filename]
           data.contents = Buffer.from(result)
           Reflect.deleteProperty(files, filename)
-          // delete files[filename]
-          files['articles/' + dateWithNoSplit+ '-First.md'] = data
+          files['articles/' + dateWithNoSplit+ '-First_Article.md'] = data
         }
       })
       promises.push(promise)
     })
 
+    promises.push(new Promise((reslove) => {
+      files['build/template/new.md'] = {}
+      files['build/template/new.md'].contents = `---
+title: {{newTitle}}
+image: default.png
+time: {{newDate}}
+{{newDesc}}
+{{newTags}}
+---
+
+# {{newTitle}}
+
+尽情自由创作吧。
+
+`;
+reslove()
+
+    }))
+
 
     Promise.all(promises).then(() => {
-      
       done()
     })
 
   })
   .destination(path.resolve(destinationPath))
   .build((err) => {
-    console.log('OKOK')
+
+
+
     if (err) {
       throw err
     }

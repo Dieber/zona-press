@@ -1,5 +1,5 @@
 ---
-title: first_article
+title: First_Article
 image: default.png
 time: {{firstDate}}
 ---
