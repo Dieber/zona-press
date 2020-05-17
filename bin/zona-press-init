@@ -27,11 +27,15 @@ const inPlace = !rawName || rawName === '.'
 const name = inPlace ? path.relative('../', process.cwd()) : rawName
 const destinationPath = inPlace ? '.' : `./${name}` 
 
+const date = moment().format('YYYY-MM-DD')
+const dateWithNoSplit = moment().format('YYYYMMDD')
 // 声明handlebar的信息
+
+
 
 let handleBarsInitData = {
   'projectName': name,
-  'firstDate': moment().format('YYYY-MM-DD')
+  'firstDate': date
 }
 
 // 在此判断所有项目环境是否达标
@@ -74,21 +78,32 @@ function run() {
     let filenames = Object.keys(files)
     let promises = []
 
-    filenames.forEach((filename) => {
+    filenames.forEach((filename) => {      
+
       let promise = fs.readFile(metalsmith.directory() + '/' + filename, 'utf-8')
       promise.then((source) => {
         if (!/{{([^{}]+)}}/g.test(source)) {
           return
         }
+
         let template = Handlebars.compile(source)
         var result = template(handleBarsInitData);
         files[filename].contents = new Buffer.from(result)
+        // 为第一篇文章改名
+        if (filename === 'First.md') {
+          let data = files[filename]
+          data.contents = Buffer.from(result)
+          delete files[filename + '.md']
+          files[dateWithNoSplit+ '-' + filename] = data
+        }
+
       })
       promises.push(promise)
     })
 
 
     Promise.all(promises).then(() => {
+      
       done()
     })
 

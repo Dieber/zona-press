@@ -1,5 +1,5 @@
 {
-  "name": "press-test2",
+  "name": "{{projectName}}",
   "version": "1.0.0",
   "description": "static blog powered by zonapress",
   "keywords": [],
