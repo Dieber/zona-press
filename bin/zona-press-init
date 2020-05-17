@@ -90,13 +90,15 @@ function run() {
         var result = template(handleBarsInitData);
         files[filename].contents = new Buffer.from(result)
         // 为第一篇文章改名
-        if (filename === 'First.md') {
+        console.log('shit', filename)
+        if (filename === 'articles/First.md') {
+          console.log(123)
           let data = files[filename]
           data.contents = Buffer.from(result)
-          delete files[filename + '.md']
-          files[dateWithNoSplit+ '-' + filename] = data
+          Reflect.deleteProperty(files, filename)
+          // delete files[filename]
+          files['articles/' + dateWithNoSplit+ '-First.md'] = data
         }
-
       })
       promises.push(promise)
     })
