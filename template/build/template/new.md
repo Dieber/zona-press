@@ -2,7 +2,8 @@
 title: {{newTitle}}
 image: default.png
 time: {{newDate}}
-{{newDesc}}{{newTags}}
+{{newDesc}}
+{{newTags}}
 ---
 
 # {{newTitle}}
