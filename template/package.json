@@ -18,7 +18,7 @@
     "inquirer": "^7.1.0",
     "koa": "^2.11.0",
     "koa-static": "^5.0.0",
-    "md-to-html-lite": "0.0.6",
+    "md-to-html-lite": "0.0.7",
     "metalsmith": "^2.3.0",
     "moment": "^2.25.3"
   },
