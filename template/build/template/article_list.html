@@ -5,12 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Article List</title>
 </head>
-<body>
+<!-- 您可以自行定义样式 -->
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  a {
+    text-decoration:none;
+    color:#333;
+  }
+    
 
-  {{#each articleList}}
-    <div class="zona-article">
-      <a href="./articles/{{filename}}.html">{{title}}</a>
-    </div>
-  {{/each}}
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #efefef;
+  }
+  .zona-main {
+    width: 800px;
+    margin: 0 auto;
+    /* display: flex; */
+  }
+  .zona-header {
+    margin: 20px auto;
+    width: 300px;
+    text-align: center;
+    font-size: 32px;
+  }
+  .zona-article {
+    padding: 32px 64px;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    margin: 16px 0;
+    box-shadow: 0 0 4px #bbb;
+  }
+
+  .zona-article > a {
+    display: block;
+    font-size: 22px;
+    color: #555;
+    /* padding: 8px; */
+  }
+  .zona-article > .time {
+    color: #999999;
+    font-size: 12px;
+  }
+
+  .zona-article > .desp {
+    margin-top: 8px;
+    color: #555;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .zona-article > .desp > a{
+    color: #888;
+    text-align: left;
+    font-size: 14px;
+    text-decoration: underline;
+    transition: color .3s;
+  }
+
+  .zona-article > .desp > a:hover{
+    color: #000;
+
+  }
+
+</style>
+<body>
+  <div class="zona-main">
+    <div class="zona-header">文章列表</div>
+
+    {{#each articleList}}
+      <div class="zona-article">
+        <a href="./articles/{{filename}}.html">{{title}}</a>
+        <div class="time">发表于: {{time}}</div>
+        {{#if desc}}
+        <div class="desp">{{desc}} <a href="./articles/{{filename}}.html">查看完整文章 > </a></div>
+        {{/if}}
+      </div>
+    {{/each}}
+
+  </div>
+
 </body>
 </html>

@@ -4,9 +4,92 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zona博客</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #efefef;
+    }
+
+    a {
+      text-decoration:none;
+      color:#333;
+    }
+
+    .zona-main {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .zona-links {
+      margin: 20px auto;
+      display: flex;
+      width: 300px; 
+      justify-content: space-around; 
+    }
+
+    .zona-title {
+      padding-top: 200px;
+    }
+
+    .zona-title > h1 {
+      margin-left: 24px;
+      color: #808080;
+    }
+
+
+    .zona-features {
+      display: flex;
+      justify-content: center;
+    }
+
+    .zona-features > .feature {
+      padding: 32px;
+      margin: 16px;
+      display: flex;
+      width: 200px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 4px #eeeeee;
+      background-color: white;
+      transition: box-shadow .3s;
+    }
+    .zona-features > .feature:hover {
+      box-shadow: 0 0 4px #a0a0a0;
+    }
+
+  </style>
 </head>
 <body>
-  <div>这是zona博客</div>
-  <a href="./article_list.html">文章列表</a>
+  <div class="zona-main">
+    <div class="zona-title">
+      <img width="85" height="130" src="/images/zona-logo.png" alt="">
+      <h1>Zona Press</h1>
+    </div>
+    <div class="zona-links">
+      <a href="./article_list.html">文章列表</a>
+      <a href="https://github.com/Dieber/zona-press">Github</a>
+
+    </div>
+    <div class="zona-features">
+      <div class="feature">
+        <h2>没有设计</h2>
+        <p>后悔没当一名设计师。</p>
+      </div>
+      <div class="feature">
+        <h2>凑合能用</h2>
+        <p>虽然一行代码即可创建博客，但现仅支持文字，不久的将来开始支持图片或更多格式。</p>
+      </div>
+      <div class="feature">
+        <h2>非响应式</h2>
+        <p><del>嘿，谁会用手机看博客呢？</del> 哦，我的意思是说，以后有空填坑</p>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

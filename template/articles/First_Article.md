@@ -4,7 +4,7 @@ image: default.png
 time: {{firstDate}}
 ---
 
-# first_article
+# First_Article
 
 这是初始化后的第一篇文章，当您看到了这篇文章，您可以进行随意创作了。
 
@@ -19,5 +19,3 @@ time: {{firstDate}}
 即将支持：
 
 图片，列表，个性化引用。
-
-npm

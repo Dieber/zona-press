@@ -5,18 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background-color: #efefef;
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+      padding: 0;
+      margin: 0;
+    }
+
+    .zona-main {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 16px;
+    }
+    
     .zona-header {
-      background-image: url('../images/{{image}}')
+      background-image: url('../images/{{image}}');
+      background-size: cover;
+      width: 100%;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .zona-header > .content > .title {
+      font-size: 34px;
+    }
+
+    .zona-header > .content > .time {
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .zona-content {
+      background: white;
+      padding: 16px;
+      margin-top: 16px;
     }
   </style>
 </head>
 <body>
-  <div class="zona-header">
-    <div>{{title}}</div>
-    <div>{{time}}</div>
+  <div class="zona-main">
+    <div class="zona-header">
+      <div class="content">
+        <div class="title">{{title}}</div>
+        <div class="time">{{time}}</div>
+      </div>
+    </div>
+    <div class="zona-content">
+      {{{content}}}
+    </div>
   </div>
-  <div class="zona-content">
-    {{{content}}}
-  </div>
+
 </body>
 </html>
