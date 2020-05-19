@@ -86,9 +86,7 @@ function run() {
           return
         }
         // handleBars进行填充
-        console.log(filename)
         if (!(/build\/template.*/.test(filename))) {
-          console.log('shit', filename)
           let template = Handlebars.compile(source)
           var result = template(handleBarsInitData);
           files[filename].contents = new Buffer.from(result)
@@ -141,7 +139,8 @@ reslove()
 
     setTimeout(() => {
       spinner.stop()
-      console.log('build finished')
+      console.log('下载成功')
+      console.log('请进入项目文件夹npm install并使用npm run dev进行预览')
     }, 1000)
   })
 }

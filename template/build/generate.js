@@ -8,7 +8,6 @@ const {TokenParser, MarkDownNodeParser, HTMLParser} = require('md-to-html-lite')
 const { markdownPlugin } = require('./utils/msPlugins') 
 const { getMdMetadata } = require('./utils/getMdMetadata')
 const Handlebars = require('handlebars') 
-console.log(TokenParser, MarkDownNodeParser, HTMLParser)
 // 生成dist文件夹
 
 // 生成生成文件

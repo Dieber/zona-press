@@ -30,7 +30,6 @@ const markdownPlugin = () => (files, metalsmith, done) => {
           metaData[metaString.split(':')[0].trim()] = metaString.split(':')[1].trim()
         })
       } catch(e) {
-        console.log(e)
         throw Error('文件格式不正确')
       }
       let markdown = res.match(/---[\s\S]*?---([\s\S]*)/m)[1]
